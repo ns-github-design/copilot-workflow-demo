@@ -1,0 +1,12 @@
+# PowerShell
+*.ps1xml
+
+# Bicep build output
+*.json
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
