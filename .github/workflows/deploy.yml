@@ -22,8 +22,6 @@ on:
         type: choice
         options:
           - development
-          - staging
-          - production
 
 permissions:
   id-token: write
