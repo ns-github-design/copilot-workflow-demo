@@ -8,11 +8,6 @@ variable "location" {
   type        = string
 }
 
-variable "environment" {
-  description = "Environment name (dev, staging, prod)"
-  type        = string
-}
-
 variable "vnet_name" {
   description = "Name of the virtual network"
   type        = string
