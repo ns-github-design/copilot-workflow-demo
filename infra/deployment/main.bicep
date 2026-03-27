@@ -16,7 +16,7 @@ param routeTableName string
 param keyVaultName string
 param tenantId string = subscription().tenantId
 param skuName string = 'standard'
-param purgeProtectionEnabled bool = false
+param purgeProtectionEnabled bool = true
 param softDeleteRetentionDays int = 7
 param storageAccountName string
 
