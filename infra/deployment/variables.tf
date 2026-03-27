@@ -56,3 +56,7 @@ variable "soft_delete_retention_days" {
   type        = number
   default     = 7
 }
+variable "storage_account_name" {
+    type        = string
+    description = "Name of the storage account"
+}

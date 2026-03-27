@@ -30,3 +30,12 @@ module "key_vault" {
   soft_delete_retention_days = var.soft_delete_retention_days
   tags                 = var.tags
 }
+
+module "storage_account" {
+  source = "../modules/storage-account"
+
+  storage_account_name = var.storage_account_name
+  resource_group_name  = module.resource_group.resource_group_name
+  location             = module.resource_group.resource_group_location
+  tags                 = var.tags
+}
