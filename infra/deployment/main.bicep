@@ -39,6 +39,9 @@ module networkModule '../modules/network/main.bicep' = {
     routeTableName: routeTableName
     tags: tags
   }
+  dependsOn: [
+    resourceGroupModule
+  ]
 }
 
 module keyVaultModule '../modules/key-vault/main.bicep' = {
@@ -51,6 +54,9 @@ module keyVaultModule '../modules/key-vault/main.bicep' = {
     softDeleteRetentionDays: softDeleteRetentionDays
     tags: tags
   }
+  dependsOn: [
+    resourceGroupModule
+  ]
 }
 
 module storageModule '../modules/storage-account/main.bicep' = {
@@ -59,6 +65,9 @@ module storageModule '../modules/storage-account/main.bicep' = {
     storageAccountName: storageAccountName
     tags: tags
   }
+  dependsOn: [
+    resourceGroupModule
+  ]
 }
 
 output resourceGroupId string = resourceGroupModule.outputs.resourceGroupId
