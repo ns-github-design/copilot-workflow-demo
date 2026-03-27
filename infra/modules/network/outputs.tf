@@ -1,29 +1,44 @@
-output "vpc_id" {
-  description = "The ID of the VPC"
-  value       = aws_vpc.main.id
+output "virtual_network_id" {
+  description = "The ID of the virtual network"
+  value       = azurerm_virtual_network.main.id
 }
 
-output "vpc_cidr" {
-  description = "The CIDR block of the VPC"
-  value       = aws_vpc.main.cidr_block
+output "virtual_network_name" {
+  description = "The name of the virtual network"
+  value       = azurerm_virtual_network.main.name
 }
 
-output "public_subnet_ids" {
-  description = "List of public subnet IDs"
-  value       = aws_subnet.public[*].id
+output "virtual_network_address_space" {
+  description = "The address space of the virtual network"
+  value       = azurerm_virtual_network.main.address_space
 }
 
-output "private_subnet_ids" {
-  description = "List of private subnet IDs"
-  value       = aws_subnet.private[*].id
+output "subnet_id" {
+  description = "The ID of the subnet"
+  value       = azurerm_subnet.main.id
 }
 
-output "nat_gateway_id" {
-  description = "The ID of the NAT Gateway"
-  value       = aws_nat_gateway.main.id
+output "subnet_name" {
+  description = "The name of the subnet"
+  value       = azurerm_subnet.main.name
 }
 
-output "internet_gateway_id" {
-  description = "The ID of the Internet Gateway"
-  value       = aws_internet_gateway.main.id
+output "network_security_group_id" {
+  description = "The ID of the network security group"
+  value       = azurerm_network_security_group.main.id
+}
+
+output "network_security_group_name" {
+  description = "The name of the network security group"
+  value       = azurerm_network_security_group.main.name
+}
+
+output "route_table_id" {
+  description = "The ID of the route table"
+  value       = azurerm_route_table.main.id
+}
+
+output "route_table_name" {
+  description = "The name of the route table"
+  value       = azurerm_route_table.main.name
 }
