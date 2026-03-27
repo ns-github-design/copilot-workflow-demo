@@ -23,9 +23,8 @@ module "key_vault" {
   source = "../modules/key-vault"
 
   key_vault_name       = var.key_vault_name
-  location             = var.location
-  resource_group_name  = var.resource_group_name
-  tenant_id            = var.tenant_id
+  location             = module.resource_group.resource_group_location
+  resource_group_name  = module.resource_group.resource_group_name
   sku_name             = var.sku_name
   purge_protection_enabled = var.purge_protection_enabled
   soft_delete_retention_days = var.soft_delete_retention_days
