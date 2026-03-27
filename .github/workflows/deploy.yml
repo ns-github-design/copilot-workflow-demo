@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: "Terraform action to run"
+        description: "Bicep action to run"
         required: true
         default: "plan"
         type: choice
@@ -22,13 +22,18 @@ on:
         type: choice
         options:
           - development
+      resource_group_name:
+        description: "Resource group to delete when action is destroy and iac is bicep"
+        required: false
+        default: "rg-ghcp-demo-dev"
+        type: string
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  terraformDeployment:
+  infraDeployment:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'development' }}
 
@@ -36,25 +41,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Terraform Init
-        run: terraform -chdir=infra/deployment init
+      - name: Install Bicep CLI
+        run: az bicep install
 
-      - name: Terraform Plan
+      - name: Bicep What-If
         if: github.event.inputs.action == 'plan' || github.event.inputs.action == 'apply'
-        run: terraform -chdir=infra/deployment plan -var-file="main.${{ github.event.inputs.environment || 'development' }}.tfvars" -out=tfplan
+        run: >
+          az deployment sub what-if
+          --name bicep-whatif-${{ github.run_id }}
+          --location eastus
+          --template-file infra/deployment/main.bicep
+          --parameters infra/deployment/main.${{ github.event.inputs.environment || 'development' }}.bicepparam
 
-      - name: Terraform Apply
+      - name: Bicep Deploy
         if: github.event.inputs.action == 'apply'
-        run: terraform -chdir=infra/deployment apply -auto-approve tfplan
+        run: >
+          az deployment sub create
+          --name bicep-deploy-${{ github.run_id }}
+          --location eastus
+          --template-file infra/deployment/main.bicep
+          --parameters infra/deployment/main.${{ github.event.inputs.environment || 'development' }}.bicepparam
 
-      - name: Terraform Destroy
+      - name: Bicep Destroy
         if: github.event.inputs.action == 'destroy'
-        run: terraform -chdir=infra/deployment destroy -auto-approve -var-file="main.${{ github.event.inputs.environment || 'development' }}.tfvars"
+        run: az group delete --name "${{ github.event.inputs.resource_group_name }}" --yes --no-wait
