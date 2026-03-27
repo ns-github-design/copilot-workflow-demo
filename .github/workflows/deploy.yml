@@ -9,12 +9,11 @@ on:
       action:
         description: "Bicep action to run"
         required: true
-        default: "plan"
+        default: "what-if"
         type: choice
         options:
-          - plan
-          - apply
-          - destroy
+          - what-if
+          - deploy
       environment:
         description: "Deployment environment"
         required: true
@@ -22,11 +21,6 @@ on:
         type: choice
         options:
           - development
-      resource_group_name:
-        description: "Resource group to delete when action is destroy and iac is bicep"
-        required: false
-        default: "rg-ghcp-demo-dev"
-        type: string
 
 permissions:
   id-token: write
@@ -50,7 +44,7 @@ jobs:
         run: az bicep install
 
       - name: Bicep What-If
-        if: github.event.inputs.action == 'plan' || github.event.inputs.action == 'apply'
+        if: github.event.inputs.action == 'what-if'
         run: >
           az deployment sub what-if
           --name bicep-whatif-${{ github.run_id }}
@@ -59,14 +53,10 @@ jobs:
           --parameters infra/deployment/main.${{ github.event.inputs.environment || 'development' }}.bicepparam
 
       - name: Bicep Deploy
-        if: github.event.inputs.action == 'apply'
+        if: github.event.inputs.action == 'deploy'
         run: >
           az deployment sub create
           --name bicep-deploy-${{ github.run_id }}
           --location eastus
           --template-file infra/deployment/main.bicep
           --parameters infra/deployment/main.${{ github.event.inputs.environment || 'development' }}.bicepparam
-
-      # - name: Bicep Destroy
-      #   if: github.event.inputs.action == 'destroy'
-      #   run: az group delete --name "${{ github.event.inputs.resource_group_name }}" --yes --no-wait
