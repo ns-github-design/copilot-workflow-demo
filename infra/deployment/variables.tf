@@ -32,3 +32,27 @@ variable "route_table_name" {
   description = "Name of the Route Table"
   type        = string
 }
+variable "tags" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+  default     = {}
+}
+variable "key_vault_name" {
+  description = "Name of the Azure Key Vault"
+  type        = string
+}
+variable "sku_name" {
+  description = "SKU for the Key Vault"
+  type        = string
+  default     = "standard"
+}
+variable "purge_protection_enabled" {
+  description = "Enable purge protection for the Key Vault"
+  type        = bool
+  default     = false
+}
+variable "soft_delete_retention_days" {
+  description = "Soft delete retention period in days"
+  type        = number
+  default     = 7
+}

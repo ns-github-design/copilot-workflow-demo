@@ -11,3 +11,5 @@ subnet_name = "subnet-default"
 subnet_address_prefixes = ["10.0.1.0/24"]
 nsg_name          = "nsg-copilot-dev"
 route_table_name  = "rt-copilot-dev"
+key_vault_name = "kv-ghcp-demo-dev"
+tenant_id      = "2f03a96e-e5a4-421a-a3a1-965e62d578ad"
