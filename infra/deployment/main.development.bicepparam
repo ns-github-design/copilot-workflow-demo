@@ -15,6 +15,6 @@ param subnetAddressPrefixes = [
 ]
 param nsgName = 'nsg-copilot-dev'
 param routeTableName = 'rt-copilot-dev'
-param keyVaultName = 'kvghcpdev002'
+param keyVaultName = 'kvghcpdev003'
 param tenantId = '2f03a96e-e5a4-421a-a3a1-965e62d578ad'
-param storageAccountName = 'stghcpdev002'
+param storageAccountName = 'stghcpdev003'
