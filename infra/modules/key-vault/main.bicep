@@ -4,7 +4,7 @@ param keyVaultName string
 param tenantId string = subscription().tenantId
 param skuName string = 'standard'
 param purgeProtectionEnabled bool = false
-param softDeleteRetentionDays int = 7
+param softDeleteRetentionDays int = '7'
 param tags object = {}
 
 resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
@@ -17,7 +17,7 @@ resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
       family: 'A'
       name: toUpper(skuName)
     }
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Off'
     enablePurgeProtection: purgeProtectionEnabled
     enableSoftDelete: true
     softDeleteRetentionInDays: softDeleteRetentionDays
