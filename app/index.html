@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrailMix Campus | Student Travel Copilot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-grid"></div>
+
+    <header class="topbar glass">
+        <div class="brand">
+            <span class="brand-mark">TM</span>
+            <div>
+                <h1>TrailMix Campus</h1>
+                <p>Student Trip Planner Powered by Copilot Ideas</p>
+            </div>
+        </div>
+        <div class="topbar-actions">
+            <button id="presenterModeBtn" class="btn btn-accent">Presenter Mode</button>
+            <button id="demoTripBtn" class="btn btn-accent">Load Demo Trip</button>
+        </div>
+    </header>
+
+    <aside id="presenterPanel" class="presenter-panel glass" aria-hidden="true">
+        <div class="presenter-header">
+            <h3>Presenter Mode</h3>
+            <button id="closePresenterBtn" class="btn btn-accent btn-small" type="button">Close</button>
+        </div>
+        <ol>
+            <li>Click <strong>Load Demo Trip</strong> to instantly show a Goa sample.</li>
+            <li>Mention that Copilot creates a day-by-day plan plus budget visibility.</li>
+            <li>Change destination and click <strong>Generate Student Copilot Plan</strong>.</li>
+            <li>Use <strong>Regenerate Day</strong> to show fast AI-style iteration.</li>
+            <li>Close with: "AI copilots scale student creativity and team speed."</li>
+        </ol>
+    </aside>
+
+    <main class="layout">
+        <section class="panel hero glass reveal">
+            <p class="eyebrow">For Friends, Clubs, Fests, Hackathons</p>
+            <h2>Plan Amazing College Trips in Minutes</h2>
+            <p>
+                TrailMix Campus helps students build affordable and fun trip plans fast. Pick your vibe,
+                group size, and budget style, then let the copilot generate day-by-day ideas.
+            </p>
+
+            <div class="stats">
+                <article>
+                    <h3 id="hoursSaved">0h</h3>
+                    <p>Planning time saved</p>
+                </article>
+                <article>
+                    <h3 id="teamPulse">0%</h3>
+                    <p>Squad hype score</p>
+                </article>
+                <article>
+                    <h3 id="budgetHealth">0%</h3>
+                    <p>Budget-fit score</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel form-card glass reveal">
+            <h3>Create Your Trip Blueprint</h3>
+            <form id="tripForm">
+                <label>
+                    Destination
+                    <input id="destination" name="destination" placeholder="Lisbon, Tokyo, Cape Town" required />
+                </label>
+
+                <div class="row-2">
+                    <label>
+                        Group Size
+                        <input id="teamSize" name="teamSize" type="number" min="2" max="200" value="12" required />
+                    </label>
+                    <label>
+                        Trip Days
+                        <input id="days" name="days" type="number" min="1" max="14" value="4" required />
+                    </label>
+                </div>
+
+                <div class="row-2">
+                    <label>
+                        Budget Style
+                        <select id="budget" name="budget">
+                            <option value="shoestring">Shoestring</option>
+                            <option value="smart" selected>Smart</option>
+                            <option value="comfort">Comfort</option>
+                        </select>
+                    </label>
+                    <label>
+                        Trip Vibe
+                        <select id="vibe" name="vibe">
+                            <option value="adventure">Adventure</option>
+                            <option value="culture" selected>Culture</option>
+                            <option value="wellness">Wellness</option>
+                            <option value="food">Food Crawl</option>
+                        </select>
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Generate Student Copilot Plan</button>
+            </form>
+        </section>
+
+        <section class="panel output glass reveal">
+            <div class="panel-title-row">
+                <h3>Copilot Suggestions</h3>
+                <span id="planTag" class="tag">Waiting for input</span>
+            </div>
+            <div class="output-actions">
+                <label>
+                    Regenerate day
+                    <select id="daySelect" name="daySelect"></select>
+                </label>
+                <button id="regenerateDayBtn" class="btn btn-accent btn-small" type="button">Regenerate Day</button>
+            </div>
+            <ul id="itinerary" class="itinerary">
+                <li class="placeholder">Your student-friendly AI itinerary appears here.</li>
+            </ul>
+        </section>
+
+        <section class="panel cost glass reveal">
+            <div class="panel-title-row">
+                <h3>Cost Split Breakdown</h3>
+                <span class="tag" id="costCurrencyTag">INR</span>
+            </div>
+            <div class="cost-grid">
+                <article>
+                    <h4 id="perDayCost">INR 0</h4>
+                    <p>Per student per day</p>
+                </article>
+                <article>
+                    <h4 id="perStudentTotal">INR 0</h4>
+                    <p>Per student total</p>
+                </article>
+                <article>
+                    <h4 id="groupTotal">INR 0</h4>
+                    <p>Group total</p>
+                </article>
+                <article>
+                    <h4 id="bufferAmount">INR 0</h4>
+                    <p>10% safety buffer</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel board glass reveal">
+            <div class="panel-title-row">
+                <h3>Campus Squad Planner</h3>
+                <span class="tag">Live Demo Mode</span>
+            </div>
+            <div class="board-grid">
+                <article>
+                    <h4>Transport Lead</h4>
+                    <p>Train and bus options shortlist</p>
+                    <p class="status">In progress</p>
+                </article>
+                <article>
+                    <h4>Stay Lead</h4>
+                    <p>Hostel and apartment picks</p>
+                    <p class="status done">Done</p>
+                </article>
+                <article>
+                    <h4>Fun Lead</h4>
+                    <p>Food, events, and local spots</p>
+                    <p class="status">In progress</p>
+                </article>
+                <article>
+                    <h4>Finance Lead</h4>
+                    <p>Per-person split and payments</p>
+                    <p class="status review">Review</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass footer reveal">
+        <p>
+            Pitch line: "AI copilots do not replace student creativity. They multiply it."
+        </p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
