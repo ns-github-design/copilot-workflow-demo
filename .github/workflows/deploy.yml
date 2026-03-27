@@ -48,6 +48,7 @@ jobs:
         run: terraform -chdir=infra/deployment init
 
       - name: Terraform Plan
+        if: github.event.inputs.action == 'plan' || github.event.inputs.action == 'apply'
         run: terraform -chdir=infra/deployment plan -var-file="main.${{ github.event.inputs.environment || 'development' }}.tfvars" -out=tfplan
 
       - name: Terraform Apply
